@@ -51,7 +51,7 @@ echo $output;
 
 This will output: 
 ```
-O:3:"Foo":1:{s:8:"Foobar";s:11:"test string";}%
+O:3:"Foo":1:{s:8:"Foobar";s:11:"test string";}
 ```
 
 Even if you doing something smart with `json_encode` you will get: 
@@ -96,7 +96,7 @@ class FooTransformer implements TransformerInterface
 ``` 
 
 This transformer is only responsible to convert a `Foo` class to an array. The
-reverse operation is handled by an `Hydrator`: 
+reverse operation is handled by a `Hydrator`: 
 
 ```php
 class FooHydrator implements HydratorInterface
@@ -119,7 +119,7 @@ class FooHydrator implements HydratorInterface
 With transformers and hydrators you are sure to never accidentally change the output
 to the user. 
 
-### Mange versions
+### Manage versions
 
 If you need to change the output you may do so with help of the version property. 
 As an example, say you want to rename the key `bar` to something differently. Then 
