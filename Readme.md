@@ -11,6 +11,14 @@ This package contains some interfaces and classes to help you serialize and dese
 a PHP class to an array. The package does not do any magic for you but rather help you
 to define your serialization rules yourself. 
 
+## Install
+
+```
+composer require happyr/message-serializer
+```
+
+See integration with [Symfony Messenger](#integration-with-symfonysmessenger).
+
 ## The Problem
 
 When you serialize a PHP class to show the output for a different user or application there
