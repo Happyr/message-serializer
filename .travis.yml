@@ -22,7 +22,7 @@ matrix:
           # Test the latest stable release
         - php: 7.2
         - php: 7.3
-          env: COVERAGE=true PHPUNIT_FLAGS="-v --coverage-text"
+          env: COVERAGE=true PHPUNIT_FLAGS="-v --coverage-text --coverage-clover=coverage.xml"
 
           # Latest commit to master
         - php: 7.3
@@ -49,5 +49,5 @@ script:
 
 after_success:
   - if [[ $COVERAGE = true ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
-  - if [[ $COVERAGE = true ]]; then php ocular.phar code-coverage:upload --format=php-clover build/coverage.xml; fi
+  - if [[ $COVERAGE = true ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage.xml; fi
 
