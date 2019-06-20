@@ -40,7 +40,6 @@ class Transformer implements MessageToArrayInterface
             } catch (\Throwable $throwable) {
                 throw new TransformerException(sprintf('Transformer "%s" failed to transform a message.', get_class($transformer)), 0, $throwable);
             }
-
         }
 
         throw new TransformerFoundException();

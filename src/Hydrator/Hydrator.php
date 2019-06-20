@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Happyr\MessageSerializer\Hydrator;
 
-
 use Happyr\MessageSerializer\Hydrator\Exception\HydratorException;
 use Happyr\MessageSerializer\Hydrator\Exception\HydratorFoundException;
-use Happyr\MessageSerializer\Transformer\Exception\TransformerFoundException;
 
 class Hydrator implements ArrayToMessageInterface
 {

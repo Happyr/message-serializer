@@ -9,8 +9,10 @@ use Happyr\MessageSerializer\Transformer\Exception\TransformerException;
 interface MessageToArrayInterface
 {
     /**
-     * Convert an object to an array
+     * Convert an object to an array.
+     *
      * @param object $message
+     *
      * @throws TransformerException
      */
     public function toArray($message): array;

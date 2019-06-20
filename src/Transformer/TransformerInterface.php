@@ -23,6 +23,7 @@ interface TransformerInterface
 
     /**
      * Does this transformer support this kind of message?
+     *
      * @param object $message
      */
     public function supports($message): bool;

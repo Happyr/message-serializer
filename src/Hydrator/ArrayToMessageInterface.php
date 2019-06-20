@@ -10,6 +10,7 @@ interface ArrayToMessageInterface
 {
     /**
      * @return object
+     *
      * @throws HydratorException
      */
     public function toMessage(array $data);

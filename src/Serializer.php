@@ -17,13 +17,11 @@ class Serializer implements SerializerInterface
     private $transformer;
     private $hydrator;
 
-
     public function __construct(MessageToArrayInterface $transformer, ArrayToMessageInterface $hydrator)
     {
         $this->transformer = $transformer;
         $this->hydrator = $hydrator;
     }
-
 
     /**
      * {@inheritdoc}
@@ -40,7 +38,6 @@ class Serializer implements SerializerInterface
             return $this->hydrator->toMessage($array);
         } catch (HydratorException $e) {
             throw new MessageDecodingFailedException('Failed to decode message', 0, $e);
-
         }
     }
 

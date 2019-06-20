@@ -11,5 +11,4 @@ namespace Happyr\MessageSerializer\Hydrator\Exception;
  */
 class HydratorException extends \RuntimeException
 {
-
 }

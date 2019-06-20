@@ -11,5 +11,4 @@ namespace Happyr\MessageSerializer\Transformer\Exception;
  */
 class TransformerException extends \RuntimeException
 {
-
 }
