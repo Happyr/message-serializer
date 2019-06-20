@@ -49,8 +49,8 @@ class Serializer implements SerializerInterface
         $envelope = $envelope->withoutStampsOfType(NonSendableStampInterface::class);
 
         return [
-            'headers' => ['Content-Type' => 'application/json'], 
-            'body'=>json_encode($this->transformer->toArray($envelope)),
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode($this->transformer->toArray($envelope)),
         ];
     }
 }
