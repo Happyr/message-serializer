@@ -12,7 +12,7 @@ use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
 use Symfony\Component\Messenger\Exception\MessageDecodingFailedException;
 use Symfony\Component\Messenger\Stamp\NonSendableStampInterface;
 
-class Serializer implements SerializerInterface
+final class Serializer implements SerializerInterface
 {
     private $transformer;
     private $hydrator;
