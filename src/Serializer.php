@@ -28,11 +28,11 @@ class Serializer implements SerializerInterface
      */
     public function decode(array $encodedEnvelope): Envelope
     {
-        if (empty($encodedEnvelope)) {
-            throw new MessageDecodingFailedException('Cannot decode empty array.');
+        if (empty($encodedEnvelope['body'])) {
+            throw new MessageDecodingFailedException('Encoded envelope should have at least a "body".');
         }
 
-        $array = json_decode($encodedEnvelope, true);
+        $array = json_decode($encodedEnvelope['body'], true);
 
         try {
             return $this->hydrator->toMessage($array);
@@ -48,6 +48,9 @@ class Serializer implements SerializerInterface
     {
         $envelope = $envelope->withoutStampsOfType(NonSendableStampInterface::class);
 
-        return $this->transformer->toArray($envelope);
+        return [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode($this->transformer->toArray($envelope)),
+        ];
     }
 }

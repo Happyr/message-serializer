@@ -174,4 +174,56 @@ class FooTransformer implements TransformerInterface
 
 ## Integration with Symfony Messenger
 
-To be documented. 
+To make it work with Symfony Messenger, add the following service definition: 
+
+```yaml
+# config/packages/happyr_message_serializer.yaml
+
+services:
+  Happyr\MessageSerializer\Serializer:
+    autowire: true
+
+  Happyr\MessageSerializer\Transformer\MessageToArrayInterface: '@happyr.message_serializer.transformer'
+  happyr.message_serializer.transformer:
+    class: Happyr\MessageSerializer\Transformer\Transformer
+    arguments: [!tagged happyr.message_serializer.transformer]
+
+
+  Happyr\MessageSerializer\Hydrator\ArrayToMessageInterface: '@happyr.message_serializer.hydrator'
+  happyr.message_serializer.hydrator:
+    class: Happyr\MessageSerializer\Hydrator\Hydrator
+    arguments: [!tagged happyr.message_serializer.hydrator]
+```
+
+If you automatically want to tag all your Transformers and Hydrators, add this to your
+main service file: 
+
+```yaml
+# config/packages/happyr_message_serializer.yaml
+services:
+    # ...
+
+    _instanceof:
+        Happyr\MessageSerializer\Transformer\TransformerInterface:
+            tags:
+                - 'happyr.message_serializer.transformer'
+
+        Happyr\MessageSerializer\Hydrator\HydratorInterface:
+            tags:
+                - 'happyr.message_serializer.responder'
+```
+
+Then finally, make sure you configure your transport to use this serializer: 
+
+```yaml
+# config/packages/messenger.yaml
+
+framework:
+    messenger:
+        transports:
+            amqp: '%env(MESSENGER_TRANSPORT_DSN)%'
+            
+            to_foobar_application:
+              dsn: '%env(MESSENGER_TRANSPORT_FOOBAR)%'
+              serializer: 'Happyr\MessageSerializer\Serializer'
+```
