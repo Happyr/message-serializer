@@ -1,5 +1,6 @@
 {
     "name": "happyr/message-serializer",
+    "description": "Serialize classes the good way. ",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -16,5 +17,15 @@
     },
     "suggest": {
         "symfony/messenger": "4.3 if you want to use a Symfony messenger integration"
+    },
+    "autoload": {
+        "psr-4": {
+            "Happyr\\MessageSerializer\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Happyr\\MessageSerializer\\": "tests/"
+        }
     }
 }
