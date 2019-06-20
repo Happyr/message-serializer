@@ -7,6 +7,6 @@ namespace Happyr\MessageSerializer\Transformer\Exception;
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class TransformerFoundException extends TransformerException
+final class TransformerFoundException extends TransformerException
 {
 }

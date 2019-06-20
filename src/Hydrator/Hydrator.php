@@ -7,7 +7,7 @@ namespace Happyr\MessageSerializer\Hydrator;
 use Happyr\MessageSerializer\Hydrator\Exception\HydratorException;
 use Happyr\MessageSerializer\Hydrator\Exception\HydratorFoundException;
 
-class Hydrator implements ArrayToMessageInterface
+final class Hydrator implements ArrayToMessageInterface
 {
     /**
      * @var HydratorInterface[]
