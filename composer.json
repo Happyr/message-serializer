@@ -1,0 +1,20 @@
+{
+    "name": "happyr/message-serializer",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nyholm",
+            "email": "tobias.nyholm@gmail.com"
+        }
+    ],
+    "require": {
+    },
+    "require-dev": {
+        "symfony/messenger": "^4.3",
+        "symfony/phpunit-bridge": "^4.3"
+    },
+    "suggest": {
+        "symfony/messenger": "4.3 if you want to use a Symfony messenger integration"
+    }
+}
