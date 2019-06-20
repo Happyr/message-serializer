@@ -17,7 +17,7 @@ to define your serialization rules yourself.
 composer require happyr/message-serializer
 ```
 
-See integration with [Symfony Messenger](#integration-with-symfonysmessenger).
+See integration with [Symfony Messenger](/#integration-with-symfonys-messenger).
 
 ## The Problem
 
