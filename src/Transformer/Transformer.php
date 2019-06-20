@@ -7,7 +7,7 @@ namespace Happyr\MessageSerializer\Transformer;
 use Happyr\MessageSerializer\Transformer\Exception\TransformerFoundException;
 use Happyr\MessageSerializer\Transformer\Exception\TransformerException;
 
-class Transformer implements MessageToArrayInterface
+final class Transformer implements MessageToArrayInterface
 {
     /**
      * @var TransformerInterface[]
