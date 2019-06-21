@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Happyr\MessageSerializer\Hydrator;
 
 use Happyr\MessageSerializer\Hydrator\Exception\HydratorException;
-use Happyr\MessageSerializer\Hydrator\Exception\HydratorFoundException;
+use Happyr\MessageSerializer\Hydrator\Exception\HydratorNotFoundException;
 
 final class Hydrator implements ArrayToMessageInterface
 {
@@ -20,7 +20,7 @@ final class Hydrator implements ArrayToMessageInterface
     }
 
     /**
-     * @throws HydratorFoundException
+     * @throws HydratorNotFoundException
      * @throws HydratorException
      */
     public function toMessage(array $data)
@@ -37,6 +37,6 @@ final class Hydrator implements ArrayToMessageInterface
             }
         }
 
-        throw new HydratorFoundException();
+        throw new HydratorNotFoundException();
     }
 }
