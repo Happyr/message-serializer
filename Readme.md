@@ -210,7 +210,7 @@ services:
 
         Happyr\MessageSerializer\Hydrator\HydratorInterface:
             tags:
-                - 'happyr.message_serializer.responder'
+                - 'happyr.message_serializer.hydrator'
 ```
 
 Then finally, make sure you configure your transport to use this serializer: 
