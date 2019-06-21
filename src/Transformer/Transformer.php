@@ -42,6 +42,6 @@ final class Transformer implements MessageToArrayInterface
             }
         }
 
-        throw new TransformerNotFoundException();
+        throw new TransformerNotFoundException(sprintf('No transformer found for "%s"', is_object($message) ? get_class($message) : gettype($message)));
     }
 }
