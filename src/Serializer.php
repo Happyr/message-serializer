@@ -35,7 +35,9 @@ final class Serializer implements SerializerInterface
         $array = json_decode($encodedEnvelope['body'], true);
 
         try {
-            return $this->hydrator->toMessage($array);
+            $object = $this->hydrator->toMessage($array);
+
+            return $object instanceof Envelope ? $object : new Envelope($object);
         } catch (HydratorException $e) {
             throw new MessageDecodingFailedException('Failed to decode message', 0, $e);
         }
