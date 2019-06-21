@@ -7,6 +7,6 @@ namespace Happyr\MessageSerializer\Hydrator\Exception;
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-final class HydratorFoundException extends HydratorException
+final class HydratorNotFoundException extends HydratorException
 {
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Happyr\MessageSerializer\Transformer;
 
-use Happyr\MessageSerializer\Transformer\Exception\TransformerFoundException;
+use Happyr\MessageSerializer\Transformer\Exception\TransformerNotFoundException;
 use Happyr\MessageSerializer\Transformer\Exception\TransformerException;
 
 final class Transformer implements MessageToArrayInterface
@@ -20,7 +20,7 @@ final class Transformer implements MessageToArrayInterface
     }
 
     /**
-     * @throws TransformerFoundException
+     * @throws TransformerNotFoundException
      * @throws TransformerException
      */
     public function toArray($message): array
@@ -42,6 +42,6 @@ final class Transformer implements MessageToArrayInterface
             }
         }
 
-        throw new TransformerFoundException();
+        throw new TransformerNotFoundException();
     }
 }
