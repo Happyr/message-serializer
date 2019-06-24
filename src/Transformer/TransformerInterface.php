@@ -12,7 +12,7 @@ interface TransformerInterface
     public function getVersion(): int;
 
     /**
-     * An message identifier. This should never be changed for a message.
+     * A message identifier. This should never be changed for a message.
      */
     public function getIdentifier(): string;
 
