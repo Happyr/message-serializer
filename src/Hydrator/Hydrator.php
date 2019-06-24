@@ -26,7 +26,7 @@ final class Hydrator implements ArrayToMessageInterface
     public function toMessage(array $data)
     {
         foreach ($this->hydrators as $hydrator) {
-            if (!$hydrator->supports($data['identifier'] ?? '', $data['version'] ?? 0)) {
+            if (!$hydrator->supportsHydrate($data['identifier'] ?? '', $data['version'] ?? 0)) {
                 continue;
             }
 

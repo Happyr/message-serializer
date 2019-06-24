@@ -6,7 +6,15 @@ namespace Happyr\MessageSerializer\Hydrator;
 
 interface HydratorInterface
 {
+    /**
+     * Convert an array to a message.
+     *
+     * @return object
+     */
     public function toMessage(array $payload, int $version);
 
-    public function supports(string $identifier, int $version): bool;
+    /**
+     * Does this Hydrator support this identifier and version?
+     */
+    public function supportsHydrate(string $identifier, int $version): bool;
 }
