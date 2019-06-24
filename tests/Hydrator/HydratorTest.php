@@ -16,7 +16,7 @@ final class HydratorTest extends TestCase
     public function testTransform()
     {
         $fooHydrator = $this->getMockBuilder(HydratorInterface::class)
-            ->setMethods(['toMessage', 'supports'])
+            ->setMethods(['toMessage', 'supportsHydrate'])
             ->getMock();
 
         $version = 2;
@@ -31,7 +31,7 @@ final class HydratorTest extends TestCase
         ];
 
         $fooHydrator->expects(self::once())
-            ->method('supports')
+            ->method('supportsHydrate')
             ->with($identifier, $version)
             ->willReturn(true);
 

@@ -26,7 +26,7 @@ final class Transformer implements MessageToArrayInterface
     public function toArray($message): array
     {
         foreach ($this->transformers as $transformer) {
-            if (!$transformer->supports($message)) {
+            if (!$transformer->supportsTransform($message)) {
                 continue;
             }
 

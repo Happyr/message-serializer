@@ -17,6 +17,8 @@ interface TransformerInterface
     public function getIdentifier(): string;
 
     /**
+     * Convert a message to an array.
+     *
      * @param object $message
      */
     public function getPayload($message): array;
@@ -26,5 +28,5 @@ interface TransformerInterface
      *
      * @param object $message
      */
-    public function supports($message): bool;
+    public function supportsTransform($message): bool;
 }

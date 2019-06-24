@@ -13,7 +13,7 @@ class TransformerTest extends TestCase
     public function testOutputArray()
     {
         $fooTransformer = $this->getMockBuilder(TransformerInterface::class)
-            ->setMethods(['getVersion', 'getIdentifier', 'getPayload', 'supports'])
+            ->setMethods(['getVersion', 'getIdentifier', 'getPayload', 'supportsTransform'])
             ->getMock();
 
         $version = 2;
@@ -22,7 +22,7 @@ class TransformerTest extends TestCase
 
         $fooTransformer->method('getVersion')->willReturn($version);
         $fooTransformer->method('getIdentifier')->willReturn($identifier);
-        $fooTransformer->method('supports')->willReturn(true);
+        $fooTransformer->method('supportsTransform')->willReturn(true);
         $fooTransformer->method('getPayload')->willReturn($payload);
 
         $transformer = new Transformer([$fooTransformer]);

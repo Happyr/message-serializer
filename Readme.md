@@ -88,7 +88,7 @@ class FooTransformer implements TransformerInterface
         ];
     }
 
-    public function supports($message): bool
+    public function supportsTransform($message): bool
     {
         return $message instanceof Foo;
     }
@@ -109,7 +109,7 @@ class FooHydrator implements HydratorInterface
         return $object;
     }
 
-    public function supports(string $identifier, int $version): bool
+    public function supportsHydrate(string $identifier, int $version): bool
     {
         return $identifier === 'foo' && $version === 1;
     }
@@ -136,7 +136,7 @@ you create a new `Hydrator` like:
          return $object;
      }
  
-     public function supports(string $identifier, int $version): bool
+     public function supportsHydrate(string $identifier, int $version): bool
      {
          return $identifier === 'foo' && $version === 2;
      }
@@ -165,7 +165,7 @@ class FooTransformer implements TransformerInterface
         ];
     }
 
-    public function supports($message): bool
+    public function supportsTransform($message): bool
     {
         return $message instanceof Foo;
     }
@@ -227,3 +227,80 @@ framework:
               dsn: '%env(MESSENGER_TRANSPORT_FOOBAR)%'
               serializer: 'Happyr\MessageSerializer\Serializer'
 ```
+
+
+## Pro tip
+
+You can let your messages implement th `HydratorInterface` and `TransformerInterface`:
+
+```php
+use Happyr\MessageSerializer\Hydrator\HydratorInterface;
+use Happyr\MessageSerializer\Transformer\TransformerInterface;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Messenger\Envelope;
+
+class CreateUser implements HydratorInterface, TransformerInterface
+{
+    private $uuid;
+    private $username;
+
+    public static function create(UuidInterface $uuid, string $username): self
+    {
+        $message = new self();
+        $message->uuid = $uuid;
+        $message->username = $username;
+        
+        return $message;
+    }
+
+    public function getUuid(): UuidInterface
+    {
+        return $this->uuid;
+    }
+    
+    public function getUsername(): string
+    {
+        return $this->username;
+    }
+
+    public function toMessage(array $payload, int $version)
+    {
+        return new self(Uuid::fromString($payload['id']), $payload['username']);
+    }
+
+    public function supportsHydrate(string $identifier, int $version): bool
+    {
+        return $identifier === 'create-user' && $version === 1;
+    }
+
+    public function getVersion(): int
+    {
+        return 1;
+    }
+
+    public function getIdentifier(): string
+    {
+        return 'create-user';
+    }
+
+    public function getPayload($message): array
+    {
+        return [
+            'id' => $message->getUuid()->toString(),
+            'username' => $message->getUsername(),
+        ];
+    }
+
+    public function supportsTransform($message): bool
+    {
+        if ($message instanceof Envelope) {
+            $message = $message->getMessage();
+        }
+
+        return $message instanceof self;
+    }
+}
+```
+
+Just note that we cannot use an constructor to this class since it will work both as a value object and a service. 
