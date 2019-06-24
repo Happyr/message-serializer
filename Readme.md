@@ -59,7 +59,7 @@ Even if you doing something smart with `json_encode` you will get:
 {"bar":"test string"}
 ```
 
-This might seam fine at first. But if you change the `Foo` class slightly. Say, 
+This might seem fine at first. But if you change the `Foo` class slightly, say, 
 rename the private property or add another property, then your output will differ 
 and you have broken your contract with your users. 
 
