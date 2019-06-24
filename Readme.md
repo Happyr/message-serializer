@@ -231,7 +231,7 @@ framework:
 
 ## Pro tip
 
-You can let your messages implement th `HydratorInterface` and `TransformerInterface`:
+You can let your messages implement both `HydratorInterface` and `TransformerInterface`:
 
 ```php
 use Happyr\MessageSerializer\Hydrator\HydratorInterface;
@@ -264,9 +264,9 @@ class CreateUser implements HydratorInterface, TransformerInterface
         return $this->username;
     }
 
-    public function toMessage(array $payload, int $version)
+    public function toMessage(array $payload, int $version): self
     {
-        return new self(Uuid::fromString($payload['id']), $payload['username']);
+        return self::create(Uuid::fromString($payload['id']), $payload['username']);
     }
 
     public function supportsHydrate(string $identifier, int $version): bool
@@ -303,4 +303,4 @@ class CreateUser implements HydratorInterface, TransformerInterface
 }
 ```
 
-Just note that we cannot use an constructor to this class since it will work both as a value object and a service. 
+Just note that we cannot use a constructor to this class since it will work both as a value object and a service. 
