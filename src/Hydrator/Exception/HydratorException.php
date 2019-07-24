@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Happyr\MessageSerializer\Hydrator\Exception;
 
 /**
- * This is thrown if a hydator had an issue hydrating a message.
+ * Any exception thrown from a Hyrdrator extends from this exception.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class HydratorException extends \RuntimeException
+interface HydratorException extends \Throwable
 {
 }

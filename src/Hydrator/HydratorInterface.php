@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Happyr\MessageSerializer\Hydrator;
 
+use Happyr\MessageSerializer\Hydrator\Exception\VersionNotSupportedException;
+
 interface HydratorInterface
 {
     /**
@@ -15,6 +17,8 @@ interface HydratorInterface
 
     /**
      * Does this Hydrator support this identifier and version?
+     *
+     * @throws VersionNotSupportedException
      */
     public function supportsHydrate(string $identifier, int $version): bool;
 }

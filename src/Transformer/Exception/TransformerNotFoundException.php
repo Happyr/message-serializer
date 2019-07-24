@@ -7,6 +7,6 @@ namespace Happyr\MessageSerializer\Transformer\Exception;
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-final class TransformerNotFoundException extends TransformerException
+final class TransformerNotFoundException extends \RuntimeException implements TransformerException
 {
 }
