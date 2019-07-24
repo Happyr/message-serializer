@@ -6,7 +6,6 @@ namespace Happyr\MessageSerializer\Transformer;
 
 use Happyr\MessageSerializer\Transformer\Exception\ConvertToArrayException;
 use Happyr\MessageSerializer\Transformer\Exception\TransformerNotFoundException;
-use Happyr\MessageSerializer\Transformer\Exception\TransformerException;
 
 final class Transformer implements MessageToArrayInterface
 {

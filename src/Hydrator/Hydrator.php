@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Happyr\MessageSerializer\Hydrator;
 
 use Happyr\MessageSerializer\Hydrator\Exception\ConvertToMessageException;
-use Happyr\MessageSerializer\Hydrator\Exception\HydratorException;
 use Happyr\MessageSerializer\Hydrator\Exception\HydratorNotFoundException;
 use Happyr\MessageSerializer\Hydrator\Exception\VersionNotSupportedException;
 
