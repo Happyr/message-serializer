@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Happyr\MessageSerializer\Transformer\Exception;
 
 /**
- * This is thrown if a transformer had an issue transforming a message.
+ * Any exception thrown from a Transformer extends from this exception.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class TransformerException extends \RuntimeException
+interface TransformerException extends \Throwable
 {
 }

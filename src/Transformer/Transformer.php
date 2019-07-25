@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Happyr\MessageSerializer\Transformer;
 
+use Happyr\MessageSerializer\Transformer\Exception\ConvertToArrayFailedException;
 use Happyr\MessageSerializer\Transformer\Exception\TransformerNotFoundException;
-use Happyr\MessageSerializer\Transformer\Exception\TransformerException;
 
 final class Transformer implements MessageToArrayInterface
 {
@@ -21,7 +21,7 @@ final class Transformer implements MessageToArrayInterface
 
     /**
      * @throws TransformerNotFoundException
-     * @throws TransformerException
+     * @throws ConvertToArrayFailedException
      */
     public function toArray($message): array
     {
@@ -38,7 +38,7 @@ final class Transformer implements MessageToArrayInterface
                     'payload' => $transformer->getPayload($message),
                 ];
             } catch (\Throwable $throwable) {
-                throw new TransformerException(sprintf('Transformer "%s" failed to transform a message.', get_class($transformer)), 0, $throwable);
+                throw new ConvertToArrayFailedException(sprintf('Transformer "%s" failed to transform a message.', get_class($transformer)), 0, $throwable);
             }
         }
 
