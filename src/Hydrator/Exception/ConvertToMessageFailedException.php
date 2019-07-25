@@ -9,6 +9,6 @@ namespace Happyr\MessageSerializer\Hydrator\Exception;
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-final class ConvertToMessageException extends \RuntimeException implements HydratorException
+final class ConvertToMessageFailedException extends \RuntimeException implements HydratorException
 {
 }

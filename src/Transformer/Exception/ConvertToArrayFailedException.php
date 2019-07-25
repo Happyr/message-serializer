@@ -9,6 +9,6 @@ namespace Happyr\MessageSerializer\Transformer\Exception;
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-final class ConvertToArrayException extends \RuntimeException implements TransformerException
+final class ConvertToArrayFailedException extends \RuntimeException implements TransformerException
 {
 }

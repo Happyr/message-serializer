@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Happyr\MessageSerializer\Hydrator;
 
-use Happyr\MessageSerializer\Hydrator\Exception\ConvertToMessageException;
+use Happyr\MessageSerializer\Hydrator\Exception\ConvertToMessageFailedException;
 use Happyr\MessageSerializer\Hydrator\Exception\HydratorNotFoundException;
 use Happyr\MessageSerializer\Hydrator\Exception\VersionNotSupportedException;
 
@@ -21,7 +21,7 @@ final class Hydrator implements ArrayToMessageInterface
     }
 
     /**
-     * @throws ConvertToMessageException
+     * @throws ConvertToMessageFailedException
      * @throws VersionNotSupportedException
      * @throws HydratorNotFoundException
      */
@@ -45,7 +45,7 @@ final class Hydrator implements ArrayToMessageInterface
             try {
                 return $hydrator->toMessage($data['payload'] ?? [], $data['version'] ?? 0);
             } catch (\Throwable $throwable) {
-                throw new ConvertToMessageException(sprintf('Transformer "%s" failed to transform a message.', get_class($hydrator)), 0, $throwable);
+                throw new ConvertToMessageFailedException(sprintf('Transformer "%s" failed to transform a message.', get_class($hydrator)), 0, $throwable);
             }
         }
 
