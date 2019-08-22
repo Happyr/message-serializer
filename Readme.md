@@ -69,6 +69,8 @@ To avoid this problem we need to separate the class from the plain representatio
 The way we do that is to use a `Transformer` to take a class and produce an array. 
 
 ```php
+use Happyr\MessageSerializer\Transformer\TransformerInterface;
+
 class FooTransformer implements TransformerInterface
 {
     public function getVersion(): int
@@ -99,6 +101,8 @@ This transformer is only responsible to convert a `Foo` class to an array. The
 reverse operation is handled by a `Hydrator`: 
 
 ```php
+use Happyr\MessageSerializer\Hydrator\HydratorInterface;
+
 class FooHydrator implements HydratorInterface
 {
     public function toMessage(array $payload, int $version)
@@ -126,26 +130,30 @@ As an example, say you want to rename the key `bar` to something differently. Th
 you create a new `Hydrator` like:
 
  ```php
- class FooHydrator2 implements HydratorInterface
- {
-     public function toMessage(array $payload, int $version)
-     {
-         $object = new Foo();
-         $object->setBar($payload['new_bar']);
- 
-         return $object;
-     }
- 
-     public function supportsHydrate(string $identifier, int $version): bool
-     {
-         return $identifier === 'foo' && $version === 2;
-     }
- }
+use Happyr\MessageSerializer\Hydrator\HydratorInterface;
+
+class FooHydrator2 implements HydratorInterface
+{
+    public function toMessage(array $payload, int $version)
+    {
+        $object = new Foo();
+        $object->setBar($payload['new_bar']);
+
+        return $object;
+    }
+
+    public function supportsHydrate(string $identifier, int $version): bool
+    {
+        return $identifier === 'foo' && $version === 2;
+    }
+}
 ```
 
 Now you simply update the transformer to your new contract: 
 
 ```php
+use Happyr\MessageSerializer\Transformer\TransformerInterface;
+
 class FooTransformer implements TransformerInterface
 {
     public function getVersion(): int
@@ -168,6 +176,41 @@ class FooTransformer implements TransformerInterface
     public function supportsTransform($message): bool
     {
         return $message instanceof Foo;
+    }
+}
+```
+
+### Differentiate between "I cant hydrate message" and "Wrong version"
+
+Sometimes it is important to know the difference between "I dont not want this message"
+and "I want this message, but not this version". This is very useful when you have
+multiple applications that communicate with each other and you are using a retry 
+mechanism when a message failed to be delivered. You do want to retry if it is the 
+wrong version (like it would be when you updated 1 of 2 apps) but not when the app
+is not interested.
+
+So lets update `FooHydrator2` from previous example: 
+
+ ```php
+use Happyr\MessageSerializer\Hydrator\Exception\VersionNotSupportedException;
+use Happyr\MessageSerializer\Hydrator\HydratorInterface;
+ 
+class FooHydrator2 implements HydratorInterface
+{
+    // ...
+
+    public function supportsHydrate(string $identifier, int $version): bool
+    {
+        if ('foo' !== $identifier) {
+            return false;
+        }
+        
+        if (2 === $version) {
+            return true;
+        }
+        
+        // We do support the message, but not the version
+        throw new VersionNotSupportedException();
     }
 }
 ```
@@ -276,6 +319,9 @@ class CreateUser implements HydratorInterface, TransformerInterface
     private $uuid;
     private $username;
 
+    /** Constructor must be public and empty. */
+    public function __construct() {}
+
     public static function create(UuidInterface $uuid, string $username): self
     {
         $message = new self();
@@ -317,6 +363,10 @@ class CreateUser implements HydratorInterface, TransformerInterface
 
     public function getPayload($message): array
     {
+        if ($message instanceof Envelope) {
+            $message = $message->getMessage();
+        }
+
         return [
             'id' => $message->getUuid()->toString(),
             'username' => $message->getUsername(),
@@ -334,4 +384,5 @@ class CreateUser implements HydratorInterface, TransformerInterface
 }
 ```
 
-Just note that we cannot use a constructor to this class since it will work both as a value object and a service. 
+Just note that we cannot use a constructor to this class since it will work both
+as a value object and a service. 
