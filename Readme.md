@@ -55,7 +55,8 @@ O:3:"Foo":1:{s:8:"Foobar";s:11:"test string";}
 ```
 
 Even if you doing something smart with `json_encode` you will get: 
-```
+
+```json
 {"bar":"test string"}
 ```
 
@@ -123,6 +124,19 @@ class FooHydrator implements HydratorInterface
 With transformers and hydrators you are sure to never accidentally change the output
 to the user. 
 
+The text representation of `Foo` when using the `Transformer` above will look like: 
+
+```json
+{
+    "version": 1,
+    "identifier": "foo",
+    "timestamp": 1566491957,
+    "payload": {
+        "bar": "test string"
+    }
+}
+```
+
 ### Manage versions
 
 If you need to change the output you may do so with help of the version property. 
@@ -182,8 +196,8 @@ class FooTransformer implements TransformerInterface
 
 ### Differentiate between "I cant hydrate message" and "Wrong version"
 
-Sometimes it is important to know the difference between "I dont not want this message"
-and "I want this message, but not this version". An example scenario would be when you 
+Sometimes it is important to know the difference between "*I dont not want this message*"
+and "*I want this message, but not this version*". An example scenario would be when you 
 have multiple applications that communicate with each other and you are using a retry 
 mechanism when a message failed to be delivered/handled. You **do not want** to retry a
 message if the application is not interested but you **do want** to retry if the message
@@ -290,7 +304,7 @@ class FooTransformer implements TransformerInterface
         }
             
         return [
-            'new_bar' => $message->getBar(),
+            'bar' => $message->getBar(),
         ];
     }
 
