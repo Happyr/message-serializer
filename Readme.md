@@ -228,6 +228,37 @@ framework:
               serializer: 'Happyr\MessageSerializer\Serializer'
 ```
 
+### Note about Envelopes
+
+When using Symfony Messenger you will get an `Envelope` passed to `TransformerInterface::getPayload()`. You need 
+to handle this like:    
+
+```php
+class FooTransformer implements TransformerInterface
+{
+    // ...
+
+    public function getPayload($message): array
+    {
+        if ($message instanceof Envelope) {
+            $message = $message->getMessage();
+        }
+            
+        return [
+            'new_bar' => $message->getBar(),
+        ];
+    }
+
+    public function supportsTransform($message): bool
+    {
+        if ($message instanceof Envelope) {
+            $message = $message->getMessage();
+        }
+            
+        return $message instanceof Foo;
+    }
+}
+```
 
 ## Pro tip
 
