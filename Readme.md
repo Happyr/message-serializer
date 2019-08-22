@@ -277,6 +277,8 @@ When using Symfony Messenger you will get an `Envelope` passed to `TransformerIn
 to handle this like:    
 
 ```php
+use Happyr\MessageSerializer\Transformer\TransformerInterface;
+
 class FooTransformer implements TransformerInterface
 {
     // ...
