@@ -183,8 +183,8 @@ class FooTransformer implements TransformerInterface
 ### Differentiate between "I cant hydrate message" and "Wrong version"
 
 Sometimes it is important to know the difference between "I dont not want this message"
-and "I want this message, but not this version". This is very important when you have
-multiple applications that communicate with each other and you are using a retry 
+and "I want this message, but not this version". An example scenario would be when you 
+have multiple applications that communicate with each other and you are using a retry 
 mechanism when a message failed to be delivered/handled. You **do not want** to retry a
 message if the application is not interested but you **do want** to retry if the message
 has wrong version (like it would be when you updated the sender app but not the receiver app).
