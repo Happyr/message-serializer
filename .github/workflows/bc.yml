@@ -1,10 +1,21 @@
-on: [push]
+on: [push, pull_request]
 name: BC
 jobs:
   roave_bc_check:
     name: Roave BC Check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Download dependencies
+        run: |
+          composer update --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Show tags
+        run: |
+          git fetch --tags
+          git tag -l
+
       - name: Roave BC Check
         uses: docker://nyholm/roave-bc-check-ga
