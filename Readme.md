@@ -229,6 +229,19 @@ class FooHydrator2 implements HydratorInterface
 }
 ```
 
+## SerializerRouter
+
+If you dispatch/consume messages serialized with `Happyr\MessageSerializer\Serializer` and default Symfony messenger to same 
+transport you might wanna use `Happyr\MessageSerializer\SerizlizerRouter`. This serializer will decide weather it will 
+use `Happyr\MessageSerializer\Serializer` to decode/encode your message or the default one from Symfony messenger. 
+
+```php
+use Happyr\MessageSerializer\SerializerRouter;
+
+$serializerRouter = new SerializerRouter($happyrSerializer, $symfonySerializer);
+```
+
+
 ## Integration with Symfony Messenger
 
 To make it work with Symfony Messenger, add the following service definition: 
@@ -250,6 +263,13 @@ services:
   happyr.message_serializer.hydrator:
     class: Happyr\MessageSerializer\Hydrator\Hydrator
     arguments: [!tagged happyr.message_serializer.hydrator]
+
+  # If you want to use SerializerRouter
+  Happyr\MessageSerializer\SerializerRouter:
+    arguments:
+      - '@Happyr\MessageSerializer\Serializer'
+      - '@Symfony\Component\Messenger\Transport\Serialization\SerializerInterface'
+
 ```
 
 If you automatically want to tag all your Transformers and Hydrators, add this to your
@@ -283,6 +303,12 @@ framework:
             to_foobar_application:
               dsn: '%env(MESSENGER_TRANSPORT_FOOBAR)%'
               serializer: 'Happyr\MessageSerializer\Serializer'
+
+            # If you use SerializerRouter
+            from_foobaz_application:
+              dsn: '%env(MESSENGER_TRANSPORT_FOOBAZ)%'
+              serializer: 'Happyr\MessageSerializer\SerializerRouter'
+
 ```
 
 ### Note about Envelopes
