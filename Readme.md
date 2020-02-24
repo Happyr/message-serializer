@@ -231,9 +231,11 @@ class FooHydrator2 implements HydratorInterface
 
 ## SerializerRouter
 
-If you dispatch/consume messages serialized with `Happyr\MessageSerializer\Serializer` and default Symfony messenger to same 
-transport you might wanna use `Happyr\MessageSerializer\SerizlizerRouter`. This serializer will decide weather it will 
-use `Happyr\MessageSerializer\Serializer` to decode/encode your message or the default one from Symfony messenger. 
+If you dispatch/consume messages serialized with `Happyr\MessageSerializer\Serializer` 
+and default Symfony messenger to same  transport you might wanna use 
+`Happyr\MessageSerializer\SerializerRouter`. This serializer will decide whether 
+it will use `Happyr\MessageSerializer\Serializer` to decode/encode your message 
+or the default one from Symfony messenger. 
 
 ```php
 use Happyr\MessageSerializer\SerializerRouter;
