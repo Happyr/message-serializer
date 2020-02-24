@@ -36,6 +36,6 @@ class TransformerTest extends TestCase
         $this->assertEquals($output['version'], $version);
         $this->assertEquals($output['identifier'], $identifier);
         $this->assertEquals($output['payload'], $payload);
-        $this->assertEquals($output['timestamp'], time(), '', 3);
+        $this->assertEqualsWithDelta($output['timestamp'], time(), 3, '');
     }
 }
