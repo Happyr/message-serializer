@@ -8,14 +8,5 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Download dependencies
-        run: |
-          composer update --no-interaction --prefer-dist --optimize-autoloader
-
-      - name: Show tags
-        run: |
-          git fetch --tags
-          git tag -l
-
       - name: Roave BC Check
         uses: docker://nyholm/roave-bc-check-ga

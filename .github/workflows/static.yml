@@ -8,13 +8,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Download dependencies
-        run: |
-          composer update --no-interaction --prefer-dist --optimize-autoloader
-          ls -la
-          ls -la vendor
-          ls -la vendor/symfony/messenger/Transport/Serialization
-
       - name: PHPStan
         uses: docker://oskarstark/phpstan-ga
         with:
@@ -24,7 +17,7 @@ jobs:
     name: PHP-CS-Fixer
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
       - name: PHP-CS-Fixer
         uses: docker://oskarstark/php-cs-fixer-ga
         with:
