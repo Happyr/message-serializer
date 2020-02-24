@@ -8,9 +8,9 @@ use Happyr\MessageSerializer\Hydrator\ArrayToMessageInterface;
 use Happyr\MessageSerializer\Hydrator\Exception\HydratorException;
 use Happyr\MessageSerializer\Transformer\MessageToArrayInterface;
 use Symfony\Component\Messenger\Envelope;
-use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
 use Symfony\Component\Messenger\Exception\MessageDecodingFailedException;
 use Symfony\Component\Messenger\Stamp\NonSendableStampInterface;
+use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
 
 final class Serializer implements SerializerInterface
 {
