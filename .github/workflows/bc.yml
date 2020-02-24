@@ -9,5 +9,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+        # Install symfony messenger since BC check does not use dev dependencies
+      - name: Download dependencies
+        run: |
+          composer require symfony/messenger
+
       - name: Roave BC Check
         uses: docker://nyholm/roave-bc-check-ga
