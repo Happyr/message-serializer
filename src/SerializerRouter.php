@@ -38,11 +38,16 @@ final class SerializerRouter implements SerializerInterface
             return $this->symfonySerializer->decode($encodedEnvelope);
         }
 
-        if (!empty(array_diff(['version', 'identifier', 'timestamp', 'payload'], array_keys($envelopeBodyArray)))) {
-            return $this->symfonySerializer->decode($encodedEnvelope);
+        if (
+            array_key_exists('version', $envelopeBodyArray)
+            && array_key_exists('identifier', $envelopeBodyArray)
+            && array_key_exists('timestamp', $envelopeBodyArray)
+            && array_key_exists('payload', $envelopeBodyArray)
+        ) {
+            return $this->happyrSerializer->decode($encodedEnvelope);
         }
 
-        return $this->happyrSerializer->decode($encodedEnvelope);
+        return $this->symfonySerializer->decode($encodedEnvelope);
     }
 
     /**
