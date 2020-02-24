@@ -44,7 +44,7 @@ final class SerializerRouterTest extends TestCase
         );
     }
 
-    public function testDecodeThroesExceptionIfNoBody(): void
+    public function testDecodeThrowsExceptionIfNoBody(): void
     {
         $this->expectException(MessageDecodingFailedException::class);
 
@@ -73,7 +73,7 @@ final class SerializerRouterTest extends TestCase
             'body' => json_encode([
                 'identifier' => 'some-identifier',
                 'version' => 1,
-                'timestamp' => (new \DateTimeImmutable())->format('c'),
+                'timestamp' => time(),
                 'payload' => [
                     'message' => 'Some message',
                 ],
@@ -112,7 +112,7 @@ final class SerializerRouterTest extends TestCase
         yield [[
             'body' => json_encode([
                 'version' => 1,
-                'timestamp' => (new \DateTimeImmutable())->format('c'),
+                'timestamp' => time(),
                 'payload' => [
                     'message' => 'Some message',
                 ],
@@ -122,7 +122,7 @@ final class SerializerRouterTest extends TestCase
         yield [[
             'body' => json_encode([
                 'identifier' => 'some-identifier',
-                'timestamp' => (new \DateTimeImmutable())->format('c'),
+                'timestamp' => time(),
                 'payload' => [
                     'message' => 'Some message',
                 ],
@@ -143,7 +143,7 @@ final class SerializerRouterTest extends TestCase
             'body' => json_encode([
                 'identifier' => 'some-identifier',
                 'version' => 1,
-                'timestamp' => (new \DateTimeImmutable())->format('c'),
+                'timestamp' => time(),
             ]),
         ]];
         // missing all
