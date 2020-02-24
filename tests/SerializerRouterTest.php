@@ -24,7 +24,6 @@ final class SerializerRouterTest extends TestCase
      * @var MockObject
      */
     private $symfonySerializerMock;
-
     /**
      * @var SerializerRouter
      */
