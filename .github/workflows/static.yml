@@ -11,6 +11,9 @@ jobs:
       - name: Download dependencies
         run: |
           composer update --no-interaction --prefer-dist --optimize-autoloader
+          ls -la
+          ls -la vendor
+          ls -la vendor/symfony/messenger/Transport/Serialization
 
       - name: PHPStan
         uses: docker://oskarstark/phpstan-ga
