@@ -32,7 +32,11 @@ final class Serializer implements SerializerInterface
             throw new MessageDecodingFailedException('Encoded envelope should have at least a "body".');
         }
 
-        $array = json_decode($encodedEnvelope['body'], true);
+        try {
+            $array = json_decode($encodedEnvelope['body'], true, 512, JSON_THROW_ON_ERROR);
+        } catch (\JsonException $e) {
+            throw new MessageDecodingFailedException(sprintf('Error when trying to json_decode message: "%s"', $encodedEnvelope['body']), 0, $e);
+        }
 
         try {
             $object = $this->hydrator->toMessage($array);
