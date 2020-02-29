@@ -6,6 +6,10 @@
 
 - Properly handle Json decode errors. 
 
+### Removed
+
+- Support for PHP 7.2
+
 ## 0.4.1
 
 ### Added

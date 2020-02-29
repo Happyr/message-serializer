@@ -2,7 +2,6 @@
 
 [![Latest Version](https://img.shields.io/github/release/Happyr/message-serializer.svg?style=flat-square)](https://github.com/Happyr/message-serializer/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-[![Build Status](https://img.shields.io/travis/Happyr/message-serializer.svg?style=flat-square)](https://travis-ci.org/Happyr/message-serializer)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/Happyr/message-serializer.svg?style=flat-square)](https://scrutinizer-ci.com/g/Happyr/message-serializer)
 [![Quality Score](https://img.shields.io/scrutinizer/g/Happyr/message-serializer.svg?style=flat-square)](https://scrutinizer-ci.com/g/Happyr/message-serializer)
 [![Total Downloads](https://img.shields.io/packagist/dt/happyr/message-serializer.svg?style=flat-square)](https://packagist.org/packages/happyr/message-serializer)
