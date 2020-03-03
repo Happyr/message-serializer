@@ -32,7 +32,9 @@ final class SerializerRouter implements SerializerInterface
             throw new MessageDecodingFailedException('Encoded envelope should have at least a "body".');
         }
 
-        if (null === $envelopeBodyArray = \json_decode($encodedEnvelope['body'], true)) {
+        try {
+            $envelopeBodyArray = \json_decode($encodedEnvelope['body'], true, 512, JSON_THROW_ON_ERROR);
+        } catch (\JsonException $exception) {
             return $this->symfonySerializer->decode($encodedEnvelope);
         }
 
