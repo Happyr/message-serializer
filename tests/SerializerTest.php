@@ -61,6 +61,6 @@ final class SerializerTest extends TestCase
         self::assertEquals('application/json', $output['headers']['Content-Type']);
 
         self::assertArrayHasKey('body', $output);
-        self::assertEquals(\json_encode(['foo' => 'bar']), $output['body']);
+        self::assertEquals(\json_encode(['foo' => 'bar', '_meta' => []]), $output['body']);
     }
 }

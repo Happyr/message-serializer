@@ -9,7 +9,6 @@ use Happyr\MessageSerializer\Hydrator\Exception\HydratorException;
 use Happyr\MessageSerializer\Transformer\MessageToArrayInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Exception\MessageDecodingFailedException;
-use Symfony\Component\Messenger\Stamp\DelayStamp;
 use Symfony\Component\Messenger\Stamp\NonSendableStampInterface;
 use Symfony\Component\Messenger\Stamp\RedeliveryStamp;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
@@ -40,16 +39,17 @@ final class Serializer implements SerializerInterface
             throw new MessageDecodingFailedException(\sprintf('Error when trying to json_decode message: "%s"', $encodedEnvelope['body']), 0, $e);
         }
 
+        $meta = $array['_meta'] ?? [];
+        unset($array['_meta']);
+
         try {
             $message = $this->hydrator->toMessage($array);
             $envelope = $message instanceof Envelope ? $message : new Envelope($message);
-
-            $envelope = $this->addMetaToEnvelope($array['meta'], $envelope);
-
-            return $envelope;
         } catch (HydratorException $e) {
             throw new MessageDecodingFailedException('Failed to decode message', 0, $e);
         }
+
+        return $this->addMetaToEnvelope($meta, $envelope);
     }
 
     /**
@@ -60,7 +60,7 @@ final class Serializer implements SerializerInterface
         $envelope = $envelope->withoutStampsOfType(NonSendableStampInterface::class);
 
         $message = $this->transformer->toArray($envelope);
-        $message['meta'] = $this->getMetaFromEnvelope($envelope);
+        $message['_meta'] = $this->getMetaFromEnvelope($envelope);
 
         return [
             'headers' => ['Content-Type' => 'application/json'],
@@ -72,16 +72,18 @@ final class Serializer implements SerializerInterface
     {
         $meta = [];
 
-        $retryStamp = $envelope->last(RedeliveryStamp::class);
-        $meta['retry-count'] = $retryStamp instanceof RedeliveryStamp ? $retryStamp->getRetryCount() : 0;
+        $redeliveryStamp = $envelope->last(RedeliveryStamp::class);
+        if ($redeliveryStamp instanceof RedeliveryStamp) {
+            $meta['retry-count'] = $redeliveryStamp->getRetryCount();
+        }
 
         return $meta;
     }
 
-    private function addMetaToEnvelope($meta, $envelope)
+    private function addMetaToEnvelope(array $meta, Envelope $envelope): Envelope
     {
-        if (0 !== $retryCount = $meta['retry-count'] ?? 0) {
-            $envelope = $envelope->with(new RedeliveryStamp($retryCount));
+        if (isset($meta['retry-count'])) {
+            $envelope = $envelope->with(new RedeliveryStamp((int) $meta['retry-count']));
         }
 
         return $envelope;
