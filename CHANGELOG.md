@@ -1,5 +1,11 @@
 # Change log
 
+## 0.4.3
+
+### Added
+
+- Support messenger retry strategy. 
+
 ## 0.4.2
 
 ### Added
