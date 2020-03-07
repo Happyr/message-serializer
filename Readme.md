@@ -277,7 +277,7 @@ If you automatically want to tag all your Transformers and Hydrators, add this t
 main service file: 
 
 ```yaml
-# config/packages/happyr_message_serializer.yaml
+# config/services.yaml
 services:
     # ...
 
