@@ -10,9 +10,7 @@ jobs:
       max-parallel: 10
       matrix:
         php: ['7.3', '7.4']
-        env:
-          - SYMFONY_REQUIRE: '4.4.*'
-          - SYMFONY_REQUIRE: '5.0.*'
+        sf_version: ['4.4.*', '5.0.*']
 
     steps:
       - name: Set up PHP
@@ -26,6 +24,8 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Download dependencies
+        env:
+          SYMFONY_REQUIRE: ${{ matrix.sf_version }}
         run: |
           composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
 
