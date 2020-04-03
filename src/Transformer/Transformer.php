@@ -6,6 +6,7 @@ namespace Happyr\MessageSerializer\Transformer;
 
 use Happyr\MessageSerializer\Transformer\Exception\ConvertToArrayFailedException;
 use Happyr\MessageSerializer\Transformer\Exception\TransformerNotFoundException;
+use Symfony\Component\Messenger\Envelope;
 
 final class Transformer implements MessageToArrayInterface
 {
@@ -42,6 +43,12 @@ final class Transformer implements MessageToArrayInterface
             }
         }
 
-        throw new TransformerNotFoundException(sprintf('No transformer found for "%s"', is_object($message) ? get_class($message) : gettype($message)));
+        if ($message instanceof Envelope) {
+            $type = sprintf('Envelope<%s>', get_class($message->getMessage()));
+        } else {
+            $type = is_object($message) ? get_class($message) : gettype($message);
+        }
+
+        throw new TransformerNotFoundException(sprintf('No transformer found for "%s"', $type));
     }
 }
