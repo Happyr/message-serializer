@@ -1,5 +1,15 @@
 # Change log
 
+## 0.5.0
+
+### Added
+
+- Better exception message on `TransformerNotFoundException`
+
+### Removed
+
+- Support Symfony Messenger 4.3
+
 ## 0.4.3
 
 ### Added
