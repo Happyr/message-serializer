@@ -132,7 +132,8 @@ The text representation of `Foo` when using the `Transformer` above will look li
     "timestamp": 1566491957,
     "payload": {
         "bar": "test string"
-    }
+    },
+    "_meta": []
 }
 ```
 
