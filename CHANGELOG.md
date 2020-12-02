@@ -1,5 +1,11 @@
 # Change log
 
+## 0.5.1
+
+### Added
+
+- Support for PHP8
+
 ## 0.5.0
 
 ### Added
