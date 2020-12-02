@@ -9,7 +9,7 @@ jobs:
     strategy:
       max-parallel: 10
       matrix:
-        php: ['7.3', '7.4']
+        php: ['7.3', '7.4', '8.0']
         sf_version: ['4.4.*', '5.0.*']
 
     steps:
