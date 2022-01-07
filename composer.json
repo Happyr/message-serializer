@@ -14,11 +14,11 @@
         "ext-json": "*"
     },
     "require-dev": {
-        "symfony/messenger": "^4.4 || ^5.0",
-        "symfony/phpunit-bridge": "^4.4 || ^5.0"
+        "symfony/messenger": "^4.4 || ^5.4 || ^6.0",
+        "symfony/phpunit-bridge": "^4.4 || ^5.4 || ^6.0"
     },
     "suggest": {
-        "symfony/messenger": "4.4 if you want to use a Symfony messenger integration"
+        "symfony/messenger": "if you want to use a Symfony messenger integration"
     },
     "autoload": {
         "psr-4": {
