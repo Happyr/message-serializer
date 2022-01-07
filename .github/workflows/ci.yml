@@ -22,7 +22,7 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@2.1.0
         with:
-          php-version: ${{ matrix.php }}
+          php-version: ${{ matrix.php-version }}
           coverage: pcov
           tools: flex
 
@@ -31,7 +31,7 @@ jobs:
 
       - name: Download dependencies
         env:
-          SYMFONY_REQUIRE: ${{ matrix.sf_version }}
+          SYMFONY_REQUIRE: ${{ matrix.symfony-version }}
         run: |
           composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
 
