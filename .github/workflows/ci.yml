@@ -9,14 +9,21 @@ jobs:
     strategy:
       max-parallel: 10
       matrix:
-        php: ['7.3', '7.4', '8.0']
-        sf_version: ['4.4.*', '5.1.*', '5.2.*']
+        include:
+          - php-version: '7.3'
+            symfony-version: '4.4.*'
+          - php-version: '7.4'
+            symfony-version: '5.4.*'
+          - php-version: '8.0'
+            symfony-version: '5.4.*'
+          - php-version: '8.0'
+            symfony-version: '6.0.*'
 
     steps:
       - name: Set up PHP
-        uses: shivammathur/setup-php@2.1.0
+        uses: shivammathur/setup-php@2.16.0
         with:
-          php-version: ${{ matrix.php }}
+          php-version: ${{ matrix.php-version }}
           coverage: pcov
           tools: flex
 
@@ -25,7 +32,7 @@ jobs:
 
       - name: Download dependencies
         env:
-          SYMFONY_REQUIRE: ${{ matrix.sf_version }}
+          SYMFONY_REQUIRE: ${{ matrix.symfony-version }}
         run: |
           composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
 
@@ -37,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up PHP
-        uses: shivammathur/setup-php@2.1.0
+        uses: shivammathur/setup-php@2.16.0
         with:
           php-version: 7.3
           coverage: pcov
