@@ -43,9 +43,14 @@ final class Hydrator implements ArrayToMessageInterface
             }
 
             try {
-                return $hydrator->toMessage($data['payload'] ?? [], $data['version'] ?? 0);
+                $object = $hydrator->toMessage($data['payload'] ?? [], $data['version'] ?? 0);
+                if ($object === null) {
+                    throw new ConvertToMessageFailedException(sprintf('Hydrator "%s" failed to transform a message, null returned.', get_class($hydrator)));
+                }
+
+                return $object;
             } catch (\Throwable $throwable) {
-                throw new ConvertToMessageFailedException(sprintf('Transformer "%s" failed to transform a message.', get_class($hydrator)), 0, $throwable);
+                throw new ConvertToMessageFailedException(sprintf('Hydrator "%s" failed to transform a message.', get_class($hydrator)), 0, $throwable);
             }
         }
 
