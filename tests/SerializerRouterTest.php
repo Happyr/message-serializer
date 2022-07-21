@@ -108,7 +108,7 @@ final class SerializerRouterTest extends TestCase
 
     public function getNonHappyrSerializerEncodedEnvelope(): iterable
     {
-        //missing identifier
+        // missing identifier
         yield [[
             'body' => json_encode([
                 'version' => 1,
@@ -118,7 +118,7 @@ final class SerializerRouterTest extends TestCase
                 ],
             ]),
         ]];
-        //missing version
+        // missing version
         yield [[
             'body' => json_encode([
                 'identifier' => 'some-identifier',
@@ -128,7 +128,7 @@ final class SerializerRouterTest extends TestCase
                 ],
             ]),
         ]];
-        //missing timestamp
+        // missing timestamp
         yield [[
             'body' => json_encode([
                 'identifier' => 'some-identifier',
@@ -138,7 +138,7 @@ final class SerializerRouterTest extends TestCase
                 ],
             ]),
         ]];
-        //missing payload
+        // missing payload
         yield [[
             'body' => json_encode([
                 'identifier' => 'some-identifier',
