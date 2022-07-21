@@ -1,5 +1,11 @@
 # Change log
 
+## 0.5.2
+
+- Added support for Symfony 6
+- Make sure `Hydrator` does not return null
+- Added LoggerInterface as optional third constructor argument for `Serializer`
+
 ## 0.5.1
 
 ### Added
