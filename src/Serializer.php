@@ -21,7 +21,7 @@ final class Serializer implements SerializerInterface
     private $hydrator;
     private $logger;
 
-    public function __construct(MessageToArrayInterface $transformer, ArrayToMessageInterface $hydrator, LoggerInterface $logger = null)
+    public function __construct(MessageToArrayInterface $transformer, ArrayToMessageInterface $hydrator, ?LoggerInterface $logger = null)
     {
         $this->transformer = $transformer;
         $this->hydrator = $hydrator;
