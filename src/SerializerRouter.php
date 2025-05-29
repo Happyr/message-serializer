@@ -23,9 +23,6 @@ final class SerializerRouter implements SerializerInterface
         $this->symfonySerializer = $symfonySerializer;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function decode(array $encodedEnvelope): Envelope
     {
         if (empty($encodedEnvelope['body'])) {
@@ -50,9 +47,6 @@ final class SerializerRouter implements SerializerInterface
         return $this->symfonySerializer->decode($encodedEnvelope);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function encode(Envelope $envelope): array
     {
         try {
