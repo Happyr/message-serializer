@@ -1,7 +1,8 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
+			message: '#^Call to function is_object\(\) with object will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
 			count: 1
 			path: src/Transformer/Transformer.php
 

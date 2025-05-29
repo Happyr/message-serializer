@@ -28,9 +28,6 @@ final class Serializer implements SerializerInterface
         $this->logger = $logger ?? new NullLogger();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function decode(array $encodedEnvelope): Envelope
     {
         if (empty($encodedEnvelope['body'])) {
@@ -59,9 +56,6 @@ final class Serializer implements SerializerInterface
         return $this->addMetaToEnvelope($meta, $envelope);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function encode(Envelope $envelope): array
     {
         $envelope = $envelope->withoutStampsOfType(NonSendableStampInterface::class);
